@@ -16,6 +16,8 @@ var gulp = require('gulp');
   autoprefixer = require('gulp-autoprefixer'),
   minifycss = require('gulp-minify-css'),
 
+  webserver = require('gulp-webserver'),
+
   imagemin = require('gulp-imagemin');
 
 function errorNotify(error){
@@ -77,5 +79,15 @@ gulp.task('watch', function() {
   gulp.watch(['img/src/**'], ['images']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('webserver', function() {
+  gulp.src('')
+    .pipe(webserver({
+      livereload: true,
+      port: 3000,
+      fallback: 'index.html',
+      open: true
+    }));
+});
+
+gulp.task('default', ['webserver', 'watch']);
 gulp.task('build', ['images', 'style', 'javascript', 'javascript-library']);
