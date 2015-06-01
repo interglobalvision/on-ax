@@ -18,6 +18,8 @@ $(document).ready(function () {
 
   // Set renderer fulscreen
   renderer.view.style.position = "absolute"
+  renderer.view.style.top = 0;
+  renderer.view.style.left = 0;
   renderer.view.style.width = window.innerWidth + "px";
   renderer.view.style.height = window.innerHeight + "px";
   renderer.view.style.display = "block";
@@ -28,6 +30,7 @@ $(document).ready(function () {
   // You need to create a root container that will hold the scene you want to draw.
   var stage = new PIXI.Container();
 
+  /*
   // This creates a texture from a 'bunny.png' image.
   var bunnyTexture = PIXI.Texture.fromImage('bunny.png');
   var bunny = new PIXI.Sprite(bunnyTexture);
@@ -39,6 +42,10 @@ $(document).ready(function () {
   bunny.scale.x = 2;
   bunny.scale.y = 2;
 
+  // Add the bunny to the scene we are building.
+  stage.addChild(bunny);
+  */
+
 
   // ------- Video
   var webcamFeed = document.getElementById('webcamFeed');
@@ -48,11 +55,11 @@ $(document).ready(function () {
 
     var webcamTexture = PIXI.Texture.fromVideo(webcamFeed);
     var webcam = new PIXI.Sprite(webcamTexture);
-    webcam.position.x = 10;
-    webcam.position.y = 10;
+    webcam.position.x = 0;
+    webcam.position.y = 0;
 
+    webcam.scale.x = 0.75;
     webcam.scale.y = 1;
-    webcam.scale.y = 0.75;
     
     stage.addChild(webcam);
 
@@ -62,9 +69,6 @@ $(document).ready(function () {
     navigator.getUserMedia({video: true }, initVideo, function(e) { console.log(e); });
   }
 
-  // Add the bunny to the scene we are building.
-  stage.addChild(bunny);
-
   // kick off the animation loop (defined below)
   animate();
 
@@ -73,7 +77,7 @@ $(document).ready(function () {
     requestAnimationFrame(animate);
 
     // each frame we spin the bunny around a bit
-    bunny.rotation += 0.01;
+    //bunny.rotation += 0.01;
 
     // this is the main render call that makes pixi draw your container and its children.
     renderer.render(stage);
