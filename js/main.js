@@ -14,7 +14,7 @@ $(document).ready(function () {
 
   // You can use either `new PIXI.WebGLRenderer`, `new PIXI.CanvasRenderer`, or `PIXI.autoDetectRenderer`
   // which will try to choose the best renderer for the environment you are in.
-  var renderer = new PIXI.autoDetectRenderer(800, 600);
+  var renderer = new PIXI.WebGLRenderer(800, 600);
 
   // Set renderer fulscreen
   renderer.view.style.position = "absolute"
@@ -60,6 +60,12 @@ $(document).ready(function () {
 
     webcam.scale.x = 0.75;
     webcam.scale.y = 1;
+    
+    // Filter
+    var crossFilter = new PIXI.filters.CrossHatchFilter();
+    var invertFilter = new PIXI.filters.InvertFilter();
+    webcam.filters = [crossFilter, invertFilter];
+
     
     stage.addChild(webcam);
 
