@@ -12,6 +12,8 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 $(document).ready(function () {
   'use strict';
 
+  var gui = new dat.GUI();
+  
   // You can use either `new PIXI.WebGLRenderer`, `new PIXI.CanvasRenderer`, or `PIXI.autoDetectRenderer`
   // which will try to choose the best renderer for the environment you are in.
   var renderer = new PIXI.WebGLRenderer(800, 600);
