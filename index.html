@@ -25,19 +25,340 @@
     <script src="js/vendor/modernizr.js"></script>
     <script type="text/javascript">
       /* Modernizr 2.8.3 (Custom Build) | MIT & BSD Build: http://modernizr.com/download/#-shiv-mq-cssclasses-teststyles-load */
-    //    ;window.Modernizr=function(a,b,c){function w(a){j.cssText=a}function x(a,b){return w(prefixes.join(a+";")+(b||""))}function y(a,b){return typeof a===b}function z(a,b){return!!~(""+a).indexOf(b)}function A(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:y(f,"function")?f.bind(d||b):f}return!1}var d="2.8.3",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l={}.toString,m={},n={},o={},p=[],q=p.slice,r,s=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},t=function(b){var c=a.matchMedia||a.msMatchMedia;if(c)return c(b)&&c(b).matches||!1;var d;return s("@media "+b+" { #"+h+" { position: absolute; } }",function(b){d=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle)["position"]=="absolute"}),d},u={}.hasOwnProperty,v;!y(u,"undefined")&&!y(u.call,"undefined")?v=function(a,b){return u.call(a,b)}:v=function(a,b){return b in a&&y(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=q.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(q.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(q.call(arguments)))};return e});for(var B in m)v(m,B)&&(r=B.toLowerCase(),e[r]=m[B](),p.push((e[r]?"":"no-")+r));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)v(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},w(""),i=k=null,function(a,b){function l(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function m(){var a=s.elements;return typeof a=="string"?a.split(" "):a}function n(a){var b=j[a[h]];return b||(b={},i++,a[h]=i,j[i]=b),b}function o(a,c,d){c||(c=b);if(k)return c.createElement(a);d||(d=n(c));var g;return d.cache[a]?g=d.cache[a].cloneNode():f.test(a)?g=(d.cache[a]=d.createElem(a)).cloneNode():g=d.createElem(a),g.canHaveChildren&&!e.test(a)&&!g.tagUrn?d.frag.appendChild(g):g}function p(a,c){a||(a=b);if(k)return a.createDocumentFragment();c=c||n(a);var d=c.frag.cloneNode(),e=0,f=m(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function q(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return s.shivMethods?o(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+m().join().replace(/[\w\-]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(s,b.frag)}function r(a){a||(a=b);var c=n(a);return s.shivCSS&&!g&&!c.hasCSS&&(c.hasCSS=!!l(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),k||q(a,c),a}var c="3.7.0",d=a.html5||{},e=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,f=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,g,h="_html5shiv",i=0,j={},k;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",g="hidden"in a,k=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){g=!0,k=!0}})();var s={elements:d.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video",version:c,shivCSS:d.shivCSS!==!1,supportsUnknownElements:k,shivMethods:d.shivMethods!==!1,type:"default",shivDocument:r,createElement:o,createDocumentFragment:p};a.html5=s,r(b)}(this,b),e._version=d,e.mq=t,e.testStyles=s,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+p.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
-    Modernizr.load([
-        {
+//    ;window.Modernizr=function(a,b,c){function w(a){j.cssText=a}function x(a,b){return w(prefixes.join(a+";")+(b||""))}function y(a,b){return typeof a===b}function z(a,b){return!!~(""+a).indexOf(b)}function A(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:y(f,"function")?f.bind(d||b):f}return!1}var d="2.8.3",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l={}.toString,m={},n={},o={},p=[],q=p.slice,r,s=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},t=function(b){var c=a.matchMedia||a.msMatchMedia;if(c)return c(b)&&c(b).matches||!1;var d;return s("@media "+b+" { #"+h+" { position: absolute; } }",function(b){d=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle)["position"]=="absolute"}),d},u={}.hasOwnProperty,v;!y(u,"undefined")&&!y(u.call,"undefined")?v=function(a,b){return u.call(a,b)}:v=function(a,b){return b in a&&y(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=q.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(q.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(q.call(arguments)))};return e});for(var B in m)v(m,B)&&(r=B.toLowerCase(),e[r]=m[B](),p.push((e[r]?"":"no-")+r));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)v(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},w(""),i=k=null,function(a,b){function l(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function m(){var a=s.elements;return typeof a=="string"?a.split(" "):a}function n(a){var b=j[a[h]];return b||(b={},i++,a[h]=i,j[i]=b),b}function o(a,c,d){c||(c=b);if(k)return c.createElement(a);d||(d=n(c));var g;return d.cache[a]?g=d.cache[a].cloneNode():f.test(a)?g=(d.cache[a]=d.createElem(a)).cloneNode():g=d.createElem(a),g.canHaveChildren&&!e.test(a)&&!g.tagUrn?d.frag.appendChild(g):g}function p(a,c){a||(a=b);if(k)return a.createDocumentFragment();c=c||n(a);var d=c.frag.cloneNode(),e=0,f=m(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function q(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return s.shivMethods?o(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+m().join().replace(/[\w\-]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(s,b.frag)}function r(a){a||(a=b);var c=n(a);return s.shivCSS&&!g&&!c.hasCSS&&(c.hasCSS=!!l(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),k||q(a,c),a}var c="3.7.0",d=a.html5||{},e=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,f=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,g,h="_html5shiv",i=0,j={},k;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",g="hidden"in a,k=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){g=!0,k=!0}})();var s={elements:d.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video",version:c,shivCSS:d.shivCSS!==!1,supportsUnknownElements:k,shivMethods:d.shivMethods!==!1,type:"default",shivDocument:r,createElement:o,createDocumentFragment:p};a.html5=s,r(b)}(this,b),e._version=d,e.mq=t,e.testStyles=s,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+p.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
+Modernizr.load([
+{
 test: Modernizr.mq('only all'),
 nope: "js/polyfills/mediaqueries.js"
 }
 ]);
     </script>
-
     <link rel='stylesheet' id='site-css'  href='css/site.css' type='text/css' media='all' />
   </head>
   <body class="">
     <!--[if lt IE 7]><p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p><![endif]-->
+
+<script id="fs" type="x-fragment/x-shader">
+uniform sampler2D texture; 
+uniform float time; // seconds
+varying vec2 vUv;
+uniform vec2 resolution;
+
+void main() {
+    gl_FragColor = texture2D(texture, vUv);
+}
+</script>
+<script id="vs" type="x-shader/x-vertex">
+
+    varying vec2 vUv;
+    uniform float time;
+    void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }
+</script>
+<script id="diffFs">
+uniform sampler2D texture;
+uniform sampler2D texture2;
+uniform sampler2D texture3;
+varying vec2 vUv;
+
+void main() {
+  vec4 tex0 = texture2D(texture, vUv);
+  vec4 tex1 = texture2D(texture2, vUv);
+  vec4 tex2 = texture2D(texture3, vUv);
+
+  vec4 fc = (tex2 - tex1);
+  float avg = dot(tex2.rgb - tex1.rgb, vec3(1.0))/3.0;
+  // fc = avg <= 0.01  ? fc : 1.0-fc;
+  // vec4 add = (fc + tex0);
+  gl_FragColor = (fc);//mod(add,tex2.r);
+  // gl_FragColor = smoothstep(tex2,tex0,mod(add,tex2.r));
+}
+</script>
+<script type="x-shader/x-fragment" id="fbFs">
+varying vec2 vUv;
+uniform sampler2D texture;
+uniform sampler2D texture2;
+
+
+void main(){
+
+    vec2 tc = vUv;
+    vec4 look = texture2D(texture,tc);//sample repos texture
+    vec2 offs = vec2(look.y-look.x,look.w-look.z)*0.001;
+    vec2 coord = offs+tc;  //relative coordinates
+    
+    vec4 repos = texture2D(texture, coord);
+    
+    gl_FragColor = repos;    
+} 
+
+</script>
+<script id="flowFs">
+   
+    uniform vec2 resolution;
+    uniform float time;
+    uniform sampler2D texture;
+    varying vec2 vUv;
+    uniform float mouseX;
+    uniform float mouseY;
+
+    void main( void ){
+      vec2 p = gl_FragCoord.xy / resolution.xy;
+      
+      // vec2 uv = p*0.15 + 0.25;
+      vec2 uv = vUv;
+      // vec2 uv = vUv*0.05 + vec2(0.62, 0.57);
+      
+      vec2 e = 0.5/resolution.xy;
+      
+      
+       float am1 = 0.5*sin( time );
+      // float am1 = 3.333;
+       float am2 = 0.5*cos( time );
+      // float am2 = 10.0;
+      
+      for( int i=0; i<25; i++ ){
+        float h  = dot( texture2D(texture, uv             ).xyz, vec3(0.333) );
+        float h1 = dot( texture2D(texture, uv+vec2(e.x,mouseX)).xyz, vec3(0.333) );
+        float h2 = dot( texture2D(texture, uv+vec2(mouseY,e.y)).xyz, vec3(0.333) );
+            // gradient
+        vec2 g = 0.00075*vec2( (h1-h), (h2-h) )/e;
+            // isoline    
+        // vec2 f = g.yx*vec2(-1.0,1.0);
+        vec2 f = g.yx*vec2(10.0*mouseX, 10.0*mouseY);
+        
+        g = mix( g, f, 0.5 );
+        
+        uv += 0.00075*g;
+      }
+      
+      vec3 col = texture2D(texture, uv).xyz;
+      
+       //  col *= 2.0;
+        
+      gl_FragColor = vec4(col, 1.0);
+    }
+</script>
+<script id="chromaFs">
+    uniform sampler2D texture;
+    uniform float time; // seconds
+    varying vec2 vUv;
+    uniform vec2 resolution;
+    uniform float mouseX;
+    uniform float mouseY;
+
+    void main(void) {
+      float   centerBuffer    = 0.0,
+      vignetteStrength  = 0.0,
+      aberrationStrength  = 1.2;
+      
+      float   chrDist,
+      vigDist;
+      
+      vec2 uv = vUv;
+      
+      //calculate how far each pixel is from the center of the screen
+      vec2 vecDist = uv - ( 0.5 , 0.5 );
+      chrDist = vigDist = length( vecDist );
+      
+      //modify the distance from the center, so that only the edges are affected
+      chrDist -= centerBuffer;
+      if( chrDist < 0.0 ) chrDist = 0.0;
+      
+      //distort the UVs
+      vec2 uvR = uv * ( 1.0 + chrDist * 0.02 * aberrationStrength ),
+      uvB = uv * ( 1.0 - chrDist * 0.02 * aberrationStrength );
+      
+      //get the individual channels using the modified UVs
+      vec4 c;
+      
+      c.x = texture2D( texture , uvR ).x;
+      c.y = texture2D( texture , uv ).y;
+      c.z = texture2D( texture , uvB ).z;
+      
+      //apply vignette
+      c *= 1.0 - vigDist* vignetteStrength;
+      
+      gl_FragColor = c;
+    }
+</script>
+  <script id="chromaFs2">
+    uniform sampler2D texture;
+    uniform float time; // seconds
+    varying vec2 vUv;
+    uniform vec2 resolution;
+    uniform float mouseX;
+    uniform float mouseY;
+//note: http://glsl.heroku.com/e#3290.7
+// copied from Little Grasshopper
+// Given a vec2 in [-1,+1], generate a texture coord in [0,+1]
+vec2 barrelDistortion( vec2 p, vec2 amt )
+{
+    p = 2.0*p-1.0;
+    //float BarrelPower = 1.125;
+    const float maxBarrelPower = 3.0;
+    float theta  = atan(p.y, p.x);
+    float radius = length(p);
+    radius = pow(radius, 1.0 + maxBarrelPower * amt.x);
+    p.x = radius * cos(theta);
+    p.y = radius * sin(theta);
+
+    return 0.5 * ( p + 1.0 );
+}
+
+
+float sat( float t )
+{
+  return clamp( t, 0.0, 1.0 );
+}
+
+float linterp( float t ) {
+  return sat( 1.0 - abs( 2.0*t - 1.0 ) );
+}
+
+float remap( float t, float a, float b ) {
+  return sat( (t - a) / (b - a) );
+}
+
+vec3 spectrum_offset( float t ) {
+  vec3 ret;
+  float lo = step(t,0.5);
+  float hi = 1.0-lo;
+  float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
+  ret = vec3(lo,1.0,hi) * vec3(1.0-w, w, 1.0-w);
+
+  return pow( ret, vec3(1.0/2.2) );
+}
+
+float nrand( vec2 n )
+{
+  return fract(sin(dot(n.xy, vec2(12.9898, 78.233)))* 43758.5453);
+}
+
+const int num_iter = 16;
+const float reci_num_iter_f = 1.0 / float(num_iter);
+const float gamma = 1600.0;
+
+vec3 lin2srgb( vec3 c )
+{
+    return pow( c, vec3(gamma) );
+}
+vec3 srgb2lin( vec3 c )
+{
+    return pow( c, vec3(1.0/gamma));
+}
+
+
+void main()
+{ 
+  vec2 uv = vUv;
+    
+    const float MAX_DIST_PX = 160.0;
+    float max_distort_px = MAX_DIST_PX * (1.0-mouseX/resolution.x);
+  vec2 max_distort = vec2(max_distort_px) / resolution.xy;
+
+    vec2 oversiz = barrelDistortion( vec2(1,1), max_distort );
+    uv = 2.0 * uv - 1.0;
+  uv = uv / (oversiz*oversiz);
+  uv = 0.5 * uv + 0.5;
+    
+  vec3 sumcol = vec3(0.0);
+  vec3 sumw = vec3(0.0);
+    float rnd = nrand( uv + fract(time) );
+  for ( int i=0; i<num_iter;++i )
+  {
+    float t = (float(i)+rnd) * reci_num_iter_f;
+    vec3 w = spectrum_offset( t );
+    sumw += w;
+    sumcol += w * srgb2lin(texture2D( texture, barrelDistortion(uv, max_distort*t ) ).rgb);
+  }
+    
+    sumcol.rgb /= sumw;
+  
+    vec3 outcol = lin2srgb(sumcol.rgb);
+    outcol += rnd/255.0;
+    
+  gl_FragColor = vec4( outcol, 1.0);
+}
+</script>
+<script id="blurFrag" type="x-shader/x-fragment">
+uniform sampler2D texture;
+uniform vec2 resolution;
+
+
+varying vec2 vUv;
+
+void main() {
+  float step_w = 1.75/resolution.x;
+  float step_h = 1.75/resolution.y;
+  vec2 tc = vUv;
+  vec4 input0 = texture2D(texture,tc);
+   
+  vec2 x1 = vec2(step_w, 0.0);
+  vec2 y1 = vec2(0.0, step_h);
+    
+  input0 += texture2D(texture, tc+x1); // right
+  input0 += texture2D(texture, tc-x1); // left
+  input0 += texture2D(texture, tc+y1); // top
+  input0 += texture2D(texture, tc-y1); // bottom
+
+  input0 *=0.2;
+
+  gl_FragColor = input0;
+}
+</script>
+<script id="sharpenFrag" type="x-shader/x-fragment">
+uniform sampler2D texture;
+uniform vec2 resolution;
+
+varying vec2 vUv;
+float kernel[9];
+vec2 offset[9];
+void main() {
+  float step_w = 1.75/resolution.x;
+  float step_h = 1.75/resolution.y;
+  vec2 tc = vUv;
+  vec4 input0 = texture2D(texture,tc);
+   
+  // kernel[0] = -2.0; kernel[1] = -1.0; kernel[2] = 0.0;
+  // kernel[3] = -1.0; kernel[4] = 1.0; kernel[5] = 1.0;
+  // kernel[6] = 0.0; kernel[7] = 1.0; kernel[8] = 2.0; 
+  // kernel[0] = 1.0; kernel[1] = 1.0; kernel[2] = 1.0;
+  // kernel[3] = 1.0; kernel[4] = -16.0; kernel[5] = 1.0;
+  // kernel[6] = 1.0; kernel[7] = 1.0; kernel[8] = 1.0; 
+
+
+  offset[0] = vec2(-step_w, -step_h);
+  offset[1] = vec2(0.0, -step_h);
+  offset[2] = vec2(step_w, -step_h);
+  offset[3] = vec2(-step_w, 0.0);
+  offset[4] = vec2(0.0, 0.0);
+  offset[5] = vec2(step_w, 0.0);
+  offset[6] = vec2(-step_w, step_h);
+  offset[7] = vec2(0.0, step_h);
+  offset[8] = vec2(step_w, step_h);
+    
+  input0 += texture2D(texture, tc + offset[0]) * kernel[0];
+  input0 += texture2D(texture, tc + offset[1]) * kernel[1];
+  input0 += texture2D(texture, tc + offset[2]) * kernel[2];
+  input0 += texture2D(texture, tc + offset[3]) * kernel[3];
+  input0 += texture2D(texture, tc + offset[4]) * kernel[4];
+  input0 += texture2D(texture, tc + offset[5]) * kernel[5];
+  input0 += texture2D(texture, tc + offset[6]) * kernel[6];
+  input0 += texture2D(texture, tc + offset[7]) * kernel[7];
+  input0 += texture2D(texture, tc + offset[8]) * kernel[8];
+
+
+  // input0 *=0.2;
+  float kernelWeight = kernel[0] + kernel[2] + kernel[3] + kernel[4] + kernel[5] + kernel[6] + kernel[7] + kernel[8]; 
+
+  if (kernelWeight <= 0.0) {
+     kernelWeight = 1.0;
+   }
+  gl_FragColor = vec4((input0/kernelWeight).rgb, 1.0);
+}</script>
 
     <section id="main-container">
 
@@ -47,7 +368,12 @@ nope: "js/polyfills/mediaqueries.js"
 
       <!-- main content -->
       <main id="main-content" class="container">
-        <video id="webcamFeed" muted loop autoplay></video>
+      <div id="container"></div>
+      <div id="title">WebCamMesh<span class="openBtn"></span></div>
+      <div id="prompt"></div>
+      <div id="info">
+        <span class="closeBtn"></span>
+      </div>
       </main>
 
       <footer id="footer" class="container">
