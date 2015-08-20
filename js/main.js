@@ -25,9 +25,9 @@ var container, scene, camera, renderer, controls, stats, webcamFeed, videoTextur
 var fov = 70;
 var canvasWidth = 320 / 2;
 var canvasHeight = 240 / 2;
-var vidWidth = 320;
-var vidHeight = 240;
-var tiltSpeed = 0.1;
+var vidWidth = 1280;
+var vidHeight = 960;
+var tiltSpeed = 0.2;
 var tiltAmount = 0.1;
 
 var perlin = new ImprovedNoise();
@@ -127,7 +127,7 @@ function init() {
   video = document.createElement('video');
   video.width = vidWidth;
   video.height = vidHeight;
-  video.autoplay = true;
+  video.preload = 'auto';
   video.loop = true;
 
   //make it cross browser
@@ -145,7 +145,23 @@ function init() {
     gui.domElement.style.display = 'inline';
     threeReady = true;
   }, function(error) {
-    prompt.innerHTML = 'Unable to capture WebCam. Please reload the page.';
+    var webmSource = document.createElement('source');
+    webmSource.src = "vid/bg.webm";
+    webmSource.type = 'video/webm; codecs="vp8, vorbis"';
+
+    var mp4Source = document.createElement('source');
+    mp4Source.src = 'vid/bg.mp4';
+    mp4Source.type = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+
+    video.appendChild(webmSource);
+    video.appendChild(mp4Source);
+
+    video.play();
+    prompt.style.display = 'none';
+    title.style.display = 'inline';
+    container.style.display = '';
+    gui.domElement.style.display = 'inline';
+    threeReady = true;
   });
 
   videoTexture = new THREE.Texture(video);
