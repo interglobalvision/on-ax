@@ -1,5 +1,6 @@
 @import "sanitize"
 @import "helpers"
+@import "fontface"
 
 // VARIABLES
 
@@ -12,12 +13,16 @@ $color-white-soft = rgb(253,253,253)
 
 // TYPOGRAPHY
 
+html 
+  overflow: hidden
+
 body
-  font-family:helvetica,arial,sans-serif
+  font-family: 'Conv_PxGrotesk-Regular', helvetica,arial,sans-serif
   font-size: $font-size-basic
   line-height: $font-leading-basic
   letter-spacing: $font-tracking-basic
   color: white
+  background: black
 
 h1
   font-size: 3em
@@ -76,6 +81,13 @@ img
   width: 100%
 
 // VIDEO
+#title
+  z-index: 20
+  position: fixed
+  width: 100%
+  top: 0
+  text-align: center
+
 #webcamFeed
   width: 250px
   height: auto
@@ -89,6 +101,7 @@ img
   bottom: 0
   left: 0
   z-index: 10
+  transition: opacity 300ms;
 
 #controlPlayer
   position: fixed

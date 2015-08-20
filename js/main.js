@@ -6,6 +6,9 @@ function l(data) {
   console.log(data);
 }
 
+document.body.style.width = window.innerWidth + "px";
+document.body.style.height = window.innerHeight + "px";
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 // GLOBALS 
@@ -56,6 +59,8 @@ var musicNoise;
 
 var threeReady = false;
 
+var webcamOn = false;
+
 function detectSpecs() {
 
   //init HTML elements
@@ -64,8 +69,7 @@ function detectSpecs() {
   info = document.querySelector('#info');
   title = document.querySelector('#title');
   info.style.display = 'none';
-  title.style.display = 'none';
-  container.style.display = 'none';
+  container.style.opacity = 0;
 
   var hasWebgl = (function() {
     try {
@@ -138,12 +142,13 @@ function init() {
     video: true
   }, function(stream) {
     //on webcam enabled
+    webcamOn = true;
     video.src = window.URL.createObjectURL(stream);
     prompt.style.display = 'none';
-    title.style.display = 'inline';
-    container.style.display = '';
+    container.style.opacity = 1;
     gui.domElement.style.display = 'inline';
     threeReady = true;
+    console.log('Three is ready');
   }, function(error) {
     var webmSource = document.createElement('source');
     webmSource.src = "vid/bg.webm";
@@ -156,12 +161,15 @@ function init() {
     video.appendChild(webmSource);
     video.appendChild(mp4Source);
 
-    video.play();
-    prompt.style.display = 'none';
-    title.style.display = 'inline';
-    container.style.display = '';
-    gui.domElement.style.display = 'inline';
-    threeReady = true;
+    video.addEventListener('canplay', function() {
+      video.play();
+      prompt.style.display = 'none';
+      container.style.opacity = 1;
+      gui.domElement.style.display = 'inline';
+      //params.noiseScale = 0.05;
+      threeReady = true;
+      console.log('Three is ready');
+    });
   });
 
   videoTexture = new THREE.Texture(video);
@@ -357,12 +365,10 @@ function getBrightness(c) {
 
 function hideInfo() {
   info.style.display = 'none';
-  title.style.display = 'inline';
 }
 
 function showInfo() {
   info.style.display = 'inline';
-  title.style.display = 'none';
 }
 
 function onWheel(event) {
@@ -404,55 +410,69 @@ CLIENT_ID = '1af5bd17adc32f47529ce064b5e03361';
 var arpPlayer = {
   audioContext: '',
   sourceNode: '',
+  audioPlayer: null,
   analyserNode: null,
   dataArray: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   soundBuffer: null,
   isReady: false,
   isPlaying: false,
-  startedAt: null,
-  pausedAt: null,
-  trackBufferData: null,
+  bpmCounter: null,
   init: function() {
     l('init');
     var _this = this;
 
+    _this.setBodySize();
+    window.addEventListener('resize', _this.setBodySize, false);
+
     // Set audio context
     _this.audioContext = new (window.AudioContext || window.webkitAudioContext);
+
+    // Set audio player
+    _this.audioPlayer = document.getElementById('audioPlayer');
 
     // Stop if is playing
     if( _this.isPlaying ) {
       _this.pause();
     }
 
-    // Initialize Soundcloud SDK
-    SC.initialize({
-      client_id: CLIENT_ID
+    _this.audioPlayer.addEventListener('canplay', function() {
+
+      // Create media element source
+      _this.sourceNode = _this.audioContext.createMediaElementSource( _this.audioPlayer );
+
+      // Create a analyser node
+      _this.analyserNode = _this.audioContext.createAnalyser();
+      _this.analyserNode.fftSize = 32;
+      _this.dataArray = new Uint8Array(_this.analyserNode.frequencyBinCount);
+
+      // Connect source with audio destination
+      _this.sourceNode.connect(_this.analyserNode);       // connect the source to the context's destination (the speakers)
+      _this.analyserNode.connect(_this.audioContext.destination);       // connect the source to the context's destination (the speakers)
+      _this.sourceNode.buffer = _this.soundBuffer;                    // tell the source which sound to play
+      
+
+      _this.isReady = true;
+      console.log('Player is ready');
+
     });
 
-    // Get track id from Soundcloud
-    SC.get('/resolve', {
-      url:'https://soundcloud.com/a-rp/i',
-    }, function(track) {
+    /*
+       var request = new XMLHttpRequest();
+       request.open('GET', streamUrl, true);
+       request.responseType = 'arraybuffer';
 
-      // Set stream URL as player source
-      var streamUrl = 'http://api.soundcloud.com/tracks/' + track.id + '/stream?client_id=' + CLIENT_ID;
-
-      var request = new XMLHttpRequest();
-      request.open('GET', streamUrl, true);
-      request.responseType = 'arraybuffer';
-
-      request.onload = function() {
-        _this.audioContext.decodeAudioData(request.response, function(buffer) {
-          _this.soundBuffer = buffer;
-          _this.isReady = true;
-          //_this.play();
-        }, function(err) {
-          console.log(err);
-        });
-      }
-
-      request.send(); 
+       request.onload = function() {
+       _this.audioContext.decodeAudioData(request.response, function(buffer) {
+       _this.soundBuffer = buffer;
+       _this.isReady = true;
+    //_this.play();
+    }, function(err) {
+    console.log(err);
     });
+    }
+
+    request.send(); 
+    */
 
     detectSpecs();
 
@@ -460,41 +480,83 @@ var arpPlayer = {
   play: function() {
     var _this = this;
 
-    // Create a sound source
-    _this.sourceNode = _this.audioContext.createBufferSource();
+    // Check if video is paused
+    if ( video.paused ) {
+      video.play();
+    }
 
-    // Create a analyser node
-    _this.analyserNode = _this.audioContext.createAnalyser();
-    _this.analyserNode.fftSize = 32;
-    _this.dataArray = new Uint8Array(_this.analyserNode.frequencyBinCount);
+    // Set bpm counter interval
+    // BPM: 124
+    _this.bpmCounter = setInterval( function() {
+      var time = _this.audioPlayer.currentTime;
+      console.log(time);
 
-    // Connect source with audio destination
-    _this.sourceNode.connect(_this.analyserNode);       // connect the source to the context's destination (the speakers)
-    _this.analyserNode.connect(_this.audioContext.destination);       // connect the source to the context's destination (the speakers)
-    _this.sourceNode.buffer = _this.soundBuffer;                    // tell the source which sound to play
+      if( time > 0 && time < 0.484 ) {
+        if( !webcamOn ) {
+          params.zDepth = 20;
+          params.invertZ = false;
+        }
+      }
+      if( time > 13.552 && time < 14.52 ) {
+        params.invertZ = true;
+        params.zDepth = 100;
+        params.noiseScale = 0.01;
+      }
+      
+      if( time > 60.016 && time < 60.984 ) {
+        if( !webcamOn ) {
+          params.invertZ = false;
+        }
+        params.noiseScale = 0.05;
+      }
+      if( time > 75.504 && time < 76.472 ) {
+        params.invertZ = true;
+      }
+
+      if( time > 85.184 && time < 86.152 ) {
+        params.noiseScale = 0.01;
+      }
+
+      if( time > 185.856 && time < 186.824 ) {
+        params.invertZ = false;
+        params.zDepth = 150;
+        params.noiseScale = 0.05;
+      }
+      if( time > 197.472 && time < 198.44 ) {
+        params.invertZ = true;
+        params.zDepth = 100;
+        params.noiseScale = 0.01;
+      }
+
+    }, 242);
+
+    // Play track
+    _this.audioPlayer.play();
+
+    // fade In animation
+    container.style.opacity = 1;
 
     _this.isPlaying = true;
 
-    if( _this.pausedAt ) {
-      _this.startedAt = Date.now() - _this.pausedAt;
-      _this.sourceNode.start(0, _this.pausedAt / 1000 );  
-    } else {
-      _this.startedAt = Date.now();
-      _this.sourceNode.start(0);  
-    }
   },
   pause: function() {
     var _this = this;
 
-    _this.sourceNode.stop(0);  
-    _this.pausedAt = Date.now() - _this.startedAt;
+    clearInterval( _this.bpmCounter );
+    _this.audioPlayer.pause();
+    video.pause();
     _this.isPlaying = 0;
+    container.style.opacity = 0;
   },
   getAnalyserData: function() {
     var _this = this;
 
     _this.analyserNode.getByteTimeDomainData(_this.dataArray);
     return _this.dataArray;
+  },
+  setBodySize: function() {
+    document.body.style.width = window.innerWidth + "px";
+    document.body.style.height = window.innerHeight + "px";
   },
 };
 
@@ -524,3 +586,4 @@ $(document).ready(function () {
 
 $(window).load(function () {
 });
+
