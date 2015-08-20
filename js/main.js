@@ -11,14 +11,6 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 // GLOBALS 
 var container, scene, camera, renderer, controls, stats, webcamFeed, videoTexture;
 
-$(document).ready(function () {
-  'use strict';
-});
-
-$(window).load(function () {
-});
-
-
 /**
  *
  * WebCam Mesh by Felix Turner
@@ -67,7 +59,7 @@ var threeReady = false;
 function detectSpecs() {
 
   //init HTML elements
-  container = document.querySelector('#container');
+  container = document.querySelector('#threeContainer');
   prompt = document.querySelector('#prompt');
   info = document.querySelector('#info');
   title = document.querySelector('#title');
@@ -149,7 +141,7 @@ function init() {
     video.src = window.URL.createObjectURL(stream);
     prompt.style.display = 'none';
     title.style.display = 'inline';
-    container.style.display = 'inline';
+    container.style.display = '';
     gui.domElement.style.display = 'inline';
     threeReady = true;
   }, function(error) {
@@ -253,7 +245,11 @@ function onParamsChange() {
 function getZDepths() {
 
   noisePosn += params.noiseSpeed;
-  var noiseData = arpPlayer.getAnalyserData();
+  if( arpPlayer.isPlaying ) {
+    var noiseData = arpPlayer.getAnalyserData();
+  } else {
+    var noiseData =  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+  }
   var noiseBass = noiseData[2] / 64.0;
   noiseBass += noiseData[3] / 64.0;
 
@@ -397,6 +393,9 @@ var arpPlayer = {
   soundBuffer: null,
   isReady: false,
   isPlaying: false,
+  startedAt: null,
+  pausedAt: null,
+  trackBufferData: null,
   init: function() {
     l('init');
     var _this = this;
@@ -406,21 +405,8 @@ var arpPlayer = {
 
     // Stop if is playing
     if( _this.isPlaying ) {
-      _this.stop();
+      _this.pause();
     }
-
-    // Create a sound source
-    _this.sourceNode = _this.audioContext.createBufferSource();
-
-
-    // Create a analyser node
-    _this.analyserNode = _this.audioContext.createAnalyser();
-    _this.analyserNode.fftSize = 32;
-    _this.dataArray = new Uint8Array(_this.analyserNode.frequencyBinCount);
-
-    // Connect source with audio destination
-    _this.sourceNode.connect(_this.analyserNode);       // connect the source to the context's destination (the speakers)
-    _this.analyserNode.connect(_this.audioContext.destination);       // connect the source to the context's destination (the speakers)
 
     // Initialize Soundcloud SDK
     SC.initialize({
@@ -442,7 +428,6 @@ var arpPlayer = {
       request.onload = function() {
         _this.audioContext.decodeAudioData(request.response, function(buffer) {
           _this.soundBuffer = buffer;
-          _this.sourceNode.buffer = _this.soundBuffer;                    // tell the source which sound to play
           _this.isReady = true;
           //_this.play();
         }, function(err) {
@@ -459,13 +444,34 @@ var arpPlayer = {
   play: function() {
     var _this = this;
 
-    _this.sourceNode.start(0);  
+    // Create a sound source
+    _this.sourceNode = _this.audioContext.createBufferSource();
+
+    // Create a analyser node
+    _this.analyserNode = _this.audioContext.createAnalyser();
+    _this.analyserNode.fftSize = 32;
+    _this.dataArray = new Uint8Array(_this.analyserNode.frequencyBinCount);
+
+    // Connect source with audio destination
+    _this.sourceNode.connect(_this.analyserNode);       // connect the source to the context's destination (the speakers)
+    _this.analyserNode.connect(_this.audioContext.destination);       // connect the source to the context's destination (the speakers)
+    _this.sourceNode.buffer = _this.soundBuffer;                    // tell the source which sound to play
+
     _this.isPlaying = true;
+
+    if( _this.pausedAt ) {
+      _this.startedAt = Date.now() - _this.pausedAt;
+      _this.sourceNode.start(0, _this.pausedAt / 1000 );  
+    } else {
+      _this.startedAt = Date.now();
+      _this.sourceNode.start(0);  
+    }
   },
-  stop: function() {
+  pause: function() {
     var _this = this;
 
     _this.sourceNode.stop(0);  
+    _this.pausedAt = Date.now() - _this.startedAt;
     _this.isPlaying = 0;
   },
   getAnalyserData: function() {
@@ -478,18 +484,27 @@ var arpPlayer = {
 
 $(document).ready(function () {
   'use strict';
+
   arpPlayer.init();
 
   // Set interval checker
   var intervalId = setInterval( function() {
     if( arpPlayer.isReady == true && threeReady == true ) {
+      // Set controls
+      document.getElementById("controlPlayer").addEventListener('click', function() {
+        if( arpPlayer.isPlaying === true ) {
+          arpPlayer.pause();
+        } else {
+          arpPlayer.play();
+        }
+
+      });
       arpPlayer.play();
       clearInterval( intervalId );
     }
   }, 300);
+
 });
 
 $(window).load(function () {
 });
-
-//start the show
