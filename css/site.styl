@@ -10,6 +10,7 @@ $font-tracking-basic = 0.001em
 
 $color-black-soft = rgb(14,14,14)
 $color-white-soft = rgb(253,253,253)
+$color-light-purple = rgb(118, 103, 193)
 
 // TYPOGRAPHY
 
@@ -25,7 +26,7 @@ body
   background: black
 
 h1
-  font-size: 3em
+  font-size: 5em
 
 h2
   font-size: 2em
@@ -44,6 +45,7 @@ a,a:active,a:visited
   transition:opacity .2s
   &:hover
     opacity:.5
+    cursor: pointer
 
 
 // BASIC
@@ -59,26 +61,21 @@ img
 
 //the 100% widths are just so stylus can compile delete as desired
 
-// HEADER
-
-#header
+#prompt
+  position: fixed
+  top: 49.5%
   width: 100%
+  text-align: center
+  font-weight: 100
+  font-family: 'Helvetica'
+  font-size: 1.5em
+  transition: opacity 300ms
+  animation: blink 484ms infinite alternate
+  color: $color-light-purple
+  display: none
 
-// POSTS LOOP
-#posts
-  width: 100%
-
-.post
-  width: 100%
-
-#pagination
-  width: 100%
-
-
-// FOOTER
-
-#footer
-  width: 100%
+  &.active
+    display: block
 
 // VIDEO
 #title
@@ -87,31 +84,72 @@ img
   width: 100%
   top: 0
   text-align: center
-
-#webcamFeed
-  width: 250px
-  height: auto
-  z-index: 10
-  position: absolute
-  bottom: 0
-  right: 0
+  padding: 1em
 
 #threeContainer
+  opacity: 0
   position: fixed
   bottom: 0
   left: 0
   z-index: 10
-  transition: opacity 300ms;
+  transition: opacity 400ms;
 
-#controlPlayer
+#playPlayer
+  font-size: 10em
+  position: fixed
+  top: 48.5%
+  width: 100%
+  text-align: center
+  display: none
+  z-index: 11
+  color: $color-light-purple
+
+  &.active
+    display: block
+
+#pausePlayer
+  display: none
   position: fixed
   bottom: 0
   left: 0
   z-index: 11
+  display: none
+  color: $color-light-purple
+  padding: 30px
+  font-size: 2em
 
+  &.active
+    display: block
+
+#closeBtn
+  color: $color-light-purple
+  
+#info
+  position: relative
+  z-index: 30
+  max-width: 800px
+  margin: 0 auto
+  width: 100%
+  font-size: 1.5em
+  line-height: 1.4
+  padding: 10em 30px 0
+  text-align: center
+  transform: translateY(-100%)
+  transition: transform 300ms
+
+  &.active
+    transform: translateY(0%)
+
+
+@keyframes blink
+  from { opacity: 0.4; }
+  to   { opacity: 1; }
 
 // MEDIA QUERIES
 
 @media screen and (max-width: 1272px)
   html
     width: 100%
+
+  h1
+    font-size: 3em

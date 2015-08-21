@@ -283,6 +283,7 @@ void main()
   gl_FragColor = vec4( outcol, 1.0);
 }
 </script>
+
 <script id="blurFrag" type="x-shader/x-fragment">
 uniform sampler2D texture;
 uniform vec2 resolution;
@@ -362,24 +363,21 @@ void main() {
 
     <section id="main-container">
 
-      <!-- start content -->
-      <header id="header">
-      </header>
-
       <!-- main content -->
       <main id="main-content">
-      <div id="threeContainer"></div>
-      <div id="title">ON | AX</div>
-      <div id="prompt"></div>
-      <div id="info">
-        <span class="closeBtn"></span>
-      </div>
-      <div id="controlPlayer">PLAY/PAUSE</div>
-      <audio id="audioPlayer" preload="auto" src="audio/qhral.mp3" loop></audio>
-      </main>
+        <div id="threeContainer"></div>
+        <h1 id="title"><a href="#">ON | AX</a></h1>
+        <div id="prompt"></div>
+        <div id="info">
+          <p>In monster metropolis Mexico City few producers achieve a distinct and fresh sound like A-rp has with his debut EP on MALIGNA. With "ON | AX" and its dense basslines, warped vocals and dark synths, A-rp creates dance music for the not too distant post-apocalyptic future. Dystopian club music is now.</p>
+          <p>Available on limited edition cassette and digitally on <a href="#">Bandcamp</a>, iTunes, Google Play, Amazon and the best music streaming services.</p>
+          <p><a href="#" id="closeBtn">&otimes;</a></p>
+        </div>
+        <div id="playPlayer"><a id="play-btn">&#9010;</a></div>
+        <div id="pausePlayer"><a id="pause-btn">&#10672;</a></div>
+        <audio id="audioPlayer" preload="auto" src="audio/qhral.mp3" loop></audio>
+        </main>
 
-      <footer id="footer" class="container">
-      </footer>
       <!-- end main-content -->
 
 

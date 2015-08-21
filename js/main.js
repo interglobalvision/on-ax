@@ -12,7 +12,7 @@ document.body.style.height = window.innerHeight + "px";
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 // GLOBALS 
-var container, scene, camera, renderer, controls, stats, webcamFeed, videoTexture;
+var container, scene, camera, renderer, controls, stats, videoTexture;
 
 /**
  *
@@ -68,7 +68,6 @@ function detectSpecs() {
   prompt = document.querySelector('#prompt');
   info = document.querySelector('#info');
   title = document.querySelector('#title');
-  info.style.display = 'none';
   container.style.opacity = 0;
 
   var hasWebgl = (function() {
@@ -90,7 +89,7 @@ function detectSpecs() {
   } else if (!hasWebgl) {
     prompt.innerHTML = 'No WebGL support detected. Please try restarting the browser.';
   } else {
-    prompt.innerHTML = 'Please allow camera access.';
+    prompt.innerHTML = 'To enjoy the full experience allow camera access';
     init();
   }
 
@@ -103,6 +102,7 @@ function init() {
     return false;
   };
 
+  prompt.classList.add('active');
   //init control panel
   params = new WCMParams();
   gui = new dat.GUI();
@@ -144,8 +144,7 @@ function init() {
     //on webcam enabled
     webcamOn = true;
     video.src = window.URL.createObjectURL(stream);
-    prompt.style.display = 'none';
-    container.style.opacity = 1;
+    prompt.classList.remove('active');
     gui.domElement.style.display = 'inline';
     threeReady = true;
     console.log('Three is ready');
@@ -163,8 +162,7 @@ function init() {
 
     video.addEventListener('canplay', function() {
       video.play();
-      prompt.style.display = 'none';
-      container.style.opacity = 1;
+      prompt.classList.remove('active');
       gui.domElement.style.display = 'inline';
       //params.noiseScale = 0.05;
       threeReady = true;
@@ -228,13 +226,14 @@ function init() {
   document.addEventListener('mousemove', onMouseMove, false);
   window.addEventListener('resize', onResize, false);
   document.addEventListener('mousewheel', onWheel, false);
-  container.addEventListener('click', hideInfo, false);
-  document.querySelector('.closeBtn').addEventListener('click', hideInfo, false);
+  container.addEventListener('click', showInfo, false);
+  document.getElementById("closeBtn").addEventListener('click', hideInfo, false);
   title.addEventListener('click', showInfo, false);
 
   //handle WebGL context lost
   renderer.domElement.addEventListener("webglcontextlost", function(event) {
     prompt.style.display = 'inline';
+    prompt.classList.add('active');
     prompt.innerHTML = 'WebGL Context Lost. Please try reloading the page.';
   }, false);
 
@@ -312,8 +311,13 @@ function getZDepths() {
 }
 
 function onMouseMove(event) {
-  mouseX = (event.clientX - windowHalfX) / (windowHalfX);
-  mouseY = (event.clientY - windowHalfY) / (windowHalfY);
+  if( webcamOn ) {
+    mouseX = (event.clientX - windowHalfX) / (windowHalfX);
+    mouseY = (event.clientY - windowHalfY) / (windowHalfY);
+  } else {
+    mouseX = (event.clientX - windowHalfX) * 20  / (windowHalfX);
+    mouseY = (event.clientY - windowHalfY) * 20  / (windowHalfY);
+  }
 }
 
 function animate() {
@@ -363,12 +367,18 @@ function getBrightness(c) {
   return (0.34 * c.r + 0.5 * c.g + 0.16 * c.b);
 }
 
-function hideInfo() {
-  info.style.display = 'none';
+function hideInfo(e) {
+  e.preventDefault();
+  info.classList.remove('active');
+  if( !arpPlayer.isPlaying ) {
+    document.getElementById("playPlayer").classList.add('active');
+  }
 }
 
-function showInfo() {
-  info.style.display = 'inline';
+function showInfo(e) {
+  e.preventDefault();
+  info.classList.add('active');
+  document.getElementById("playPlayer").classList.remove('active');
 }
 
 function onWheel(event) {
@@ -423,6 +433,19 @@ var arpPlayer = {
 
     _this.setBodySize();
     window.addEventListener('resize', _this.setBodySize, false);
+    document.getElementById("pause-btn").addEventListener('click', function(e) {
+      e.preventDefault();
+      if( arpPlayer.isPlaying === true ) {
+        arpPlayer.pause();
+      }
+    });
+    document.getElementById("play-btn").addEventListener('click', function(e) {
+      e.preventDefault();
+      if( arpPlayer.isPlaying === false ) {
+        arpPlayer.play();
+      }
+
+    });
 
     // Set audio context
     _this.audioContext = new (window.AudioContext || window.webkitAudioContext);
@@ -489,28 +512,37 @@ var arpPlayer = {
     // BPM: 124
     _this.bpmCounter = setInterval( function() {
       var time = _this.audioPlayer.currentTime;
-      console.log(time);
+      
+      // Show info in 5 sec
+      if( time > 8 && time < 6 ) {
+        info.classList.add('active');
+        document.getElementById("playPlayer").classList.remove('active');
+      }
 
+      // Animation effects
       if( time > 0 && time < 0.484 ) {
         if( !webcamOn ) {
-          params.zDepth = 20;
           params.invertZ = false;
         }
       }
       if( time > 13.552 && time < 14.52 ) {
         params.invertZ = true;
-        params.zDepth = 100;
         params.noiseScale = 0.01;
       }
       
       if( time > 60.016 && time < 60.984 ) {
         if( !webcamOn ) {
           params.invertZ = false;
+        } else {
+          video.pause();
         }
         params.noiseScale = 0.05;
       }
       if( time > 75.504 && time < 76.472 ) {
         params.invertZ = true;
+        if( webcamOn ) {
+          video.play();
+        }
       }
 
       if( time > 85.184 && time < 86.152 ) {
@@ -535,6 +567,8 @@ var arpPlayer = {
 
     // fade In animation
     container.style.opacity = 1;
+    document.getElementById("pausePlayer").classList.add('active');
+    document.getElementById("playPlayer").classList.remove('active');
 
     _this.isPlaying = true;
 
@@ -542,11 +576,15 @@ var arpPlayer = {
   pause: function() {
     var _this = this;
 
+    container.style.opacity = 0;
     clearInterval( _this.bpmCounter );
     _this.audioPlayer.pause();
     video.pause();
-    _this.isPlaying = 0;
-    container.style.opacity = 0;
+    _this.isPlaying = false;
+    document.getElementById("pausePlayer").classList.remove('active');
+    if( document.getElementById('info').classList == false ) {
+      document.getElementById("playPlayer").classList.add('active');
+    }
   },
   getAnalyserData: function() {
     var _this = this;
@@ -569,15 +607,7 @@ $(document).ready(function () {
   var intervalId = setInterval( function() {
     if( arpPlayer.isReady == true && threeReady == true ) {
       // Set controls
-      document.getElementById("controlPlayer").addEventListener('click', function() {
-        if( arpPlayer.isPlaying === true ) {
-          arpPlayer.pause();
-        } else {
-          arpPlayer.play();
-        }
-
-      });
-      arpPlayer.play();
+      document.getElementById("playPlayer").classList.add('active');
       clearInterval( intervalId );
     }
   }, 300);
