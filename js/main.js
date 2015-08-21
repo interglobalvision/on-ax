@@ -226,9 +226,14 @@ function init() {
   document.addEventListener('mousemove', onMouseMove, false);
   window.addEventListener('resize', onResize, false);
   document.addEventListener('mousewheel', onWheel, false);
-  container.addEventListener('click', showInfo, false);
-  document.getElementById("closeBtn").addEventListener('click', hideInfo, false);
-  title.addEventListener('click', showInfo, false);
+
+  // If in iframe, dont show info
+  if( window.self === window.top ) {
+    container.addEventListener('click', showInfo, false);
+    document.getElementById("closeBtn").addEventListener('click', hideInfo, false);
+    title.addEventListener('click', showInfo, false);
+
+  }
 
   //handle WebGL context lost
   renderer.domElement.addEventListener("webglcontextlost", function(event) {
