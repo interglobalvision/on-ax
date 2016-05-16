@@ -60,6 +60,7 @@ var musicNoise;
 var threeReady = false;
 
 var webcamOn = false;
+var isIframe = false;
 
 function detectSpecs() {
 
@@ -188,13 +189,20 @@ function init() {
      world3D.add(mirror);
      */
 
+  /*
+  var coverTexture = THREE.ImageUtils.loadTexture( "img/texture.png" );
+  coverTexture.wrapS = THREE.RepeatWrapping;
+  coverTexture.wrapT = THREE.RepeatWrapping;
+  */
   //add wireframe plane
   wireMaterial = new THREE.MeshBasicMaterial({
-    opacity: 0.1,
-    color: 0xffffff,
+    opacity: 0.15,
+    color: 0x7667c1,
     wireframe: true,
+    //alphaMap: coverTexture,
     blending: THREE.AdditiveBlending,
-    transparent: true
+    transparent: true,
+    wireframeLinejoin: "round"
   });
   var wiremirror = new THREE.Mesh(geometry, wireMaterial);
   world3D.add(wiremirror);
@@ -229,6 +237,7 @@ function init() {
 
   // If in iframe, dont show info
   if( window.self === window.top ) {
+    isIframe = true;
     container.addEventListener('click', showInfo, false);
     document.getElementById("closeBtn").addEventListener('click', hideInfo, false);
     title.addEventListener('click', showInfo, false);
@@ -519,7 +528,7 @@ var arpPlayer = {
       var time = _this.audioPlayer.currentTime;
       
       // Show info in 5 sec
-      if( time > 8 && time < 6 ) {
+      if( time > 8 && time < 9 && isIframe ) {
         info.classList.add('active');
         document.getElementById("playPlayer").classList.remove('active');
       }
