@@ -283,7 +283,6 @@ img {
   color: #7667c1;
 }
 #info {
-  display: none !important;
   position: relative;
   z-index: 30;
   max-width: 800px;

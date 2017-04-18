@@ -11,7 +11,7 @@ document.body.style.height = window.innerHeight + "px";
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-// GLOBALS 
+// GLOBALS
 var container, scene, camera, renderer, controls, stats, videoTexture;
 
 /**
@@ -486,7 +486,7 @@ var arpPlayer = {
       _this.sourceNode.connect(_this.analyserNode);       // connect the source to the context's destination (the speakers)
       _this.analyserNode.connect(_this.audioContext.destination);       // connect the source to the context's destination (the speakers)
       _this.sourceNode.buffer = _this.soundBuffer;                    // tell the source which sound to play
-      
+
 
       _this.isReady = true;
       console.log('Player is ready');
@@ -508,7 +508,7 @@ var arpPlayer = {
     });
     }
 
-    request.send(); 
+    request.send();
     */
 
     detectSpecs();
@@ -526,7 +526,7 @@ var arpPlayer = {
     // BPM: 124
     _this.bpmCounter = setInterval( function() {
       var time = _this.audioPlayer.currentTime;
-      
+
       // Show info in 5 sec
       if( time > 8 && time < 9 && isIframe ) {
         info.classList.add('active');
@@ -543,7 +543,7 @@ var arpPlayer = {
         params.invertZ = true;
         params.noiseScale = 0.01;
       }
-      
+
       if( time > 60.016 && time < 60.984 ) {
         if( !webcamOn ) {
           params.invertZ = false;
